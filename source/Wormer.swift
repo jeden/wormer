@@ -57,12 +57,20 @@ extension Injector {
         }
     }
     
-    public func instanceForType<P>(aProtocol: P.Type) -> P? {
+	public func instanceForType<P>() -> P {
+		return instanceForType(P.self)
+	}
+
+	public func instanceForType<P>(aProtocol: P.Type) -> P {
+		return safeInstanceForType(aProtocol)!
+	}
+
+	public func safeInstanceForType<P>(aProtocol: P.Type) -> P? {
         let key = keyForProtocol(aProtocol)
-        return instanceForType(key)
+        return safeInstanceForType(key)
     }
     
-    public func instanceForType<P>(protocolName: String) -> P? {
+    public func safeInstanceForType<P>(protocolName: String) -> P? {
         let instance : AnyObject! = instanceForKey(protocolName)
         return instance as? P
     }

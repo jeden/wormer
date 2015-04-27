@@ -41,10 +41,21 @@ class WormerTests: XCTestCase {
 	func testObtainInstance() {
 		self.injector.bindInterface(IProtocol.self, toImplementation: Implementation.self, asSingleton: false, initializer: { Implementation() })
 		
-		let instance: IProtocol? = self.injector.instanceForType(IProtocol.self)
+		let instance: IProtocol = self.injector.instanceForType(IProtocol.self)
 		
-		XCTAssertTrue(instance != nil, "Instance not found")
-		XCTAssertTrue(instance! is Implementation, "Instance not of the expected type")
+		XCTAssertTrue(instance is Implementation, "Instance not of the expected type")
+	}
+	
+	/**
+	Bind a protocol to an implementation
+	Using the overload using type inference to determine the interface type, rather than passing it as parameter
+	*/
+	func testObtainInstanceUsingAltMethod() {
+		self.injector.bindInterface(IProtocol.self, toImplementation: Implementation.self, asSingleton: false, initializer: { Implementation() })
+		
+		let instance: IProtocol = self.injector.instanceForType()
+		
+		XCTAssertTrue(instance is Implementation, "Instance not of the expected type")
 	}
 	
 	/**
@@ -54,7 +65,7 @@ class WormerTests: XCTestCase {
 	func testRegisterUnboundInstance() {
 		self.injector.bindInterface(IProtocol.self, toImplementation: UnboundImplementation.self, asSingleton: false, initializer: { UnboundImplementation() })
 		
-		let instance: IProtocol? = self.injector.instanceForType(IProtocol.self)
+		let instance: IProtocol? = self.injector.safeInstanceForType(IProtocol.self)
 		
 		XCTAssertTrue(instance == nil, "The instance should be nil")
 	}
