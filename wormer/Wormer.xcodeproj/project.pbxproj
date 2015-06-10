@@ -11,6 +11,7 @@
 		57CF0F331ACF19D7008F481C /* Wormer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57CF0F271ACF19D6008F481C /* Wormer.framework */; };
 		57CF0F3A1ACF19D7008F481C /* WormerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CF0F391ACF19D7008F481C /* WormerTests.swift */; };
 		57D36D1D1AEA47FD000A49BB /* Wormer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D36D1C1AEA47FD000A49BB /* Wormer.swift */; };
+		57DD531E1B28CE91000FE747 /* Wormer.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 57DD531D1B28CE91000FE747 /* Wormer.podspec */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +32,7 @@
 		57CF0F381ACF19D7008F481C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57CF0F391ACF19D7008F481C /* WormerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WormerTests.swift; sourceTree = "<group>"; };
 		57D36D1C1AEA47FD000A49BB /* Wormer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Wormer.swift; path = ../../source/Wormer.swift; sourceTree = "<group>"; };
+		57DD531D1B28CE91000FE747 /* Wormer.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Wormer.podspec; path = ../Wormer.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 		57CF0F1D1ACF19D6008F481C = {
 			isa = PBXGroup;
 			children = (
+				57DD531D1B28CE91000FE747 /* Wormer.podspec */,
 				57CF0F291ACF19D6008F481C /* Wormer */,
 				57CF0F361ACF19D7008F481C /* WormerTests */,
 				57CF0F281ACF19D6008F481C /* Products */,
@@ -195,6 +198,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57DD531E1B28CE91000FE747 /* Wormer.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,7 +276,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -314,7 +318,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
