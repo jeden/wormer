@@ -12,6 +12,8 @@
 		57CF0F3A1ACF19D7008F481C /* WormerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CF0F391ACF19D7008F481C /* WormerTests.swift */; };
 		57D36D1D1AEA47FD000A49BB /* Wormer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D36D1C1AEA47FD000A49BB /* Wormer.swift */; };
 		57DD531E1B28CE91000FE747 /* Wormer.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 57DD531D1B28CE91000FE747 /* Wormer.podspec */; };
+		60528E23A568517E3B940EDD /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 60528DD337DA04AD89E1C725 /* LICENSE */; };
+		60528FE252A04E56E58E9C3D /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 60528F243931D0CE7FC13685 /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +35,9 @@
 		57CF0F391ACF19D7008F481C /* WormerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WormerTests.swift; sourceTree = "<group>"; };
 		57D36D1C1AEA47FD000A49BB /* Wormer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Wormer.swift; path = ../../source/Wormer.swift; sourceTree = "<group>"; };
 		57DD531D1B28CE91000FE747 /* Wormer.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Wormer.podspec; path = ../Wormer.podspec; sourceTree = "<group>"; };
+		6052878FBF0C9D4E3BB69056 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		60528DD337DA04AD89E1C725 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		60528F243931D0CE7FC13685 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.gitignore; name = .gitignore; path = ../.gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +66,9 @@
 				57CF0F291ACF19D6008F481C /* Wormer */,
 				57CF0F361ACF19D7008F481C /* WormerTests */,
 				57CF0F281ACF19D6008F481C /* Products */,
+				60528F243931D0CE7FC13685 /* .gitignore */,
+				60528DD337DA04AD89E1C725 /* LICENSE */,
+				6052878FBF0C9D4E3BB69056 /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -164,7 +172,8 @@
 		57CF0F1E1ACF19D6008F481C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = Elapsus;
 				TargetAttributes = {
 					57CF0F261ACF19D6008F481C = {
@@ -199,6 +208,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				57DD531E1B28CE91000FE747 /* Wormer.podspec in Resources */,
+				60528FE252A04E56E58E9C3D /* .gitignore in Resources */,
+				60528E23A568517E3B940EDD /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +272,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -338,6 +350,7 @@
 				INFOPLIST_FILE = Wormer/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.elapsus.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -353,6 +366,7 @@
 				INFOPLIST_FILE = Wormer/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.elapsus.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -361,16 +375,14 @@
 		57CF0F411ACF19D7008F481C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WormerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.elapsus.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -378,12 +390,10 @@
 		57CF0F421ACF19D7008F481C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = WormerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.elapsus.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
