@@ -1,4 +1,4 @@
-**Wormer** is a lightweight and simple dependency injection framework, written in pure Swift.
+**Wormer** is a lightweight and simple dependency injection framework, written in pure Swift 3.
 
 It is freely inspired by [Unity](https://github.com/unitycontainer/unity), an open source DI container for the .NET platform.
 
@@ -44,7 +44,7 @@ An overload of `instance` is available, taking advantage of type inference for t
 let instance: Interface = Injector.default.instance()
 ```
 
-**Warning**: both implementation internally use force unwrapping to cast the interface to the implementation. That results in a runtime exception if the interface has not been bound to an implementation. A safer methods is available, which doesn't use forced unwrapping,  return an optional instead:
+**Warning**: both implementations internally use force unwrapping to cast the interface to the implementation. That results in a runtime exception if the interface has not been bound to an implementation. A safer methods is available, which doesn't use forced unwrapping,  returning an optional instead:
 
 ```swift
 public func safeInstance<P>(for interfaceType: P.Type) -> P?
@@ -66,3 +66,6 @@ Sorry, not available yet
 
 ### Manual
 Copy the `Wormer.swift` file and paste it into your project.
+
+## License
+MIT license. Read the `LICENCE` file.
