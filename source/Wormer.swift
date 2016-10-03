@@ -16,12 +16,16 @@
 /// - create an instance of the implementation type bound to an interface type
 public final class Injector {
     // MARK: Properties
-    fileprivate var instantiators: [String : () -> AnyObject] = Dictionary()
-    fileprivate var singletons = [String : AnyObject]()
+    fileprivate var instantiators: [String : () -> Any] = Dictionary()
+    fileprivate var singletons = [String : Any]()
     
     /// Singleton
     /// :returns: static instance
     public private(set) static var `default` = Injector()
+
+	/// Make the initializer private to prevent manual instantiations
+	/// The injector is accessible as a singleton, using its `default` static property
+	private init() {}
 }
 
 // MARK: - Interface
@@ -32,7 +36,7 @@ extension Injector {
     /// - parameter implementationType: type of the actual interface implementation
     /// - parameter singleton:          flag indicating whether to use the singleton pattern
     /// - parameter initializer:        closure creating an instance of the object
-    public func bind<P, T : AnyObject>(interface interfaceType: P.Type, toImplementation implementationType:T.Type, asSingleton singleton:Bool, initializer: @escaping () -> T) {
+    public func bind<P, T : Any>(interface interfaceType: P.Type, toImplementation implementationType:T.Type, asSingleton singleton:Bool, initializer: @escaping () -> T) {
 		let name = key(for: interfaceType)
 		return bindInterface(named: name, toImplementation: implementationType, asSingleton: singleton, initializer: initializer)
     }
@@ -43,7 +47,7 @@ extension Injector {
     /// - parameter implementationType: type of the actual protocol implementation
     /// - parameter singleton: flag indicating whether to use the singleton pattern
     /// - parameter initializer: closure creating an instance of the object
-    public func bindInterface<T : AnyObject>(named interfaceName: String, toImplementation implementationType:T.Type, asSingleton singleton:Bool, initializer: @escaping () -> T) {
+    public func bindInterface<T : Any>(named interfaceName: String, toImplementation implementationType:T.Type, asSingleton singleton:Bool, initializer: @escaping () -> T) {
         // Check that the protocol has been registered
         if self.instantiators[interfaceName] == nil {
             // Instantiation closure
@@ -116,8 +120,8 @@ private extension Injector {
     /// - parameter interfaceType: the key identifying the protocol
     ///
     /// - returns: an instance of the specified type, or .None if the type has not been registered
-    func instance(named interfaceType: String) -> AnyObject? {
-        if let _instance : AnyObject = self.singletons[interfaceType] {
+    func instance(named interfaceType: String) -> Any? {
+        if let _instance : Any = self.singletons[interfaceType] {
             return _instance
         }
         
