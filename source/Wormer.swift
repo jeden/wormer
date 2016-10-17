@@ -9,36 +9,47 @@
 
 
 // MARK: - Instance
-public class Injector {
+
+/// Dependency injector
+/// Class exposing a singleton instance which can be used to:
+/// - bind interface types to implementtion types,
+/// - create an instance of the implementation type bound to an interface type
+public final class Injector {
     // MARK: Properties
-    private var instantiators: [String : () -> AnyObject] = Dictionary()
-    private var singletons = [String : AnyObject]()
+    fileprivate var instantiators: [String : () -> Any] = Dictionary()
+    fileprivate var singletons = [String : Any]()
     
     /// Singleton
     /// :returns: static instance
-    private(set) public static var instance = Injector()
+    public private(set) static var `default` = Injector()
+
+	/// Make the initializer private to prevent manual instantiations
+	/// The injector is accessible as a singleton, using its `default` static property
+	private init() {}
 }
 
 // MARK: - Interface
 extension Injector {
-    // Bind a protocol to an implementation type
-    // :aProtocol: protocol identifying the registered type
-    // :type: type of the actual protocol implementation
-    // :asSingleton: flag indicating whether to use the singleton pattern
-    // :initializer: closure creating an instance of the object
-    public func bindInterface<P, T : AnyObject>(aProtocol: P.Type, toImplementation type:T.Type, asSingleton singleton:Bool, initializer: () -> T) {
-        let key = keyForProtocol(aProtocol)
-        return bindInterface(key, toImplementation: type, asSingleton: singleton, initializer: initializer)
+	/// Bind an interface to an implementation type
+    ///
+    /// - parameter interfaceType:      interface identifying the registered type
+    /// - parameter implementationType: type of the actual interface implementation
+    /// - parameter singleton:          flag indicating whether to use the singleton pattern
+    /// - parameter initializer:        closure creating an instance of the object
+    public func bind<P, T : Any>(interface interfaceType: P.Type, toImplementation implementationType:T.Type, asSingleton singleton:Bool, initializer: @escaping () -> T) {
+		let name = key(for: interfaceType)
+		return bindInterface(named: name, toImplementation: implementationType, asSingleton: singleton, initializer: initializer)
     }
-    
-    // Bind a protocol to an implementation type
-    // :protocolName: name of the protocol identifying the registered type
-    // :type: type of the actual protocol implementation
-    // :asSingleton: flag indicating whether to use the singleton pattern
-    // :initializer: closure creating an instance of the object
-    public func bindInterface<T : AnyObject>(protocolName: String, toImplementation type:T.Type, asSingleton singleton:Bool, initializer: () -> T) {
+
+    /// Bind a protocol to an implementation type
+    ///
+    /// - parameter interfaceName: name of the interface identifying the registered type
+    /// - parameter implementationType: type of the actual protocol implementation
+    /// - parameter singleton: flag indicating whether to use the singleton pattern
+    /// - parameter initializer: closure creating an instance of the object
+    public func bindInterface<T : Any>(named interfaceName: String, toImplementation implementationType:T.Type, asSingleton singleton:Bool, initializer: @escaping () -> T) {
         // Check that the protocol has been registered
-        if self.instantiators[protocolName] == nil {
+        if self.instantiators[interfaceName] == nil {
             // Instantiation closure
             let instantiator = { () -> T in
                 // Create an instance
@@ -46,60 +57,78 @@ extension Injector {
                 
                 // If it's registered as singleton, stores the instance
                 if (singleton) {
-                    self.singletons[protocolName] = instance
+                    self.singletons[interfaceName] = instance
                 }
                 
                 return instance
             }
             
             // Store the instantiator
-            self.instantiators[protocolName] = instantiator
+            self.instantiators[interfaceName] = instantiator
         }
     }
-    
-	public func instanceForType<P>() -> P {
-		return instanceForType(P.self)
+
+	/// Return the implementation corresponding to the interface type
+	/// identified by the return value, using type inference to detect
+	/// the correct type
+	///
+	/// - returns: implementation for the type inferred interface type
+	public func instance<P>() -> P {
+		return instance(for: P.self)
 	}
 
-	public func instanceForType<P>(aProtocol: P.Type) -> P {
-		return safeInstanceForType(aProtocol)!
+
+	/// Retrieve the implementaton type for the specified `interfaceType`
+	/// interface, and return an instance of it
+	///
+	/// - parameter interfaceType: type of the interface (protocol or base class) bound to the implementation type to retrieve
+	///
+	/// - returns: instance of the implementation type bound to `interfaceType`
+	public func instance<P>(for interfaceType: P.Type) -> P {
+		return safeInstance(for: interfaceType)!
 	}
 
-	public func safeInstanceForType<P>(aProtocol: P.Type) -> P? {
-        let key = keyForProtocol(aProtocol)
-        return safeInstanceForType(key)
+	public func safeInstance<P>(for interfaceType: P.Type) -> P? {
+		let name = key(for: interfaceType)
+		return safeInstance(named: name)
     }
     
-    public func safeInstanceForType<P>(protocolName: String) -> P? {
-        let instance : AnyObject! = instanceForKey(protocolName)
-        return instance as? P
+    public func safeInstance<P>(named interfaceName: String) -> P? {
+		guard let _instance = instance(named: interfaceName) else { return .none }
+        return _instance as? P
     }
     
     public func reset() {
-        self.instantiators.removeAll(keepCapacity: true)
-        self.singletons.removeAll(keepCapacity: true)
+        self.instantiators.removeAll(keepingCapacity: true)
+        self.singletons.removeAll(keepingCapacity: true)
     }
 }
 
 // MARK: - Internals
 private extension Injector {
-    /// :param: aProtocol
-    /// :returns: key identifying the protocol
-    func keyForProtocol<P>(aProtocol: P.Type) -> String {
-        return ("\(aProtocol)")
+	/// Retrieve a name for an interface type
+	///
+	/// - parameter interfaceType: type of the interface 
+	///
+	/// - returns: name (key) identifying the interface
+	func key<P>(for interfaceType: P.Type) -> String {
+        return ("\(interfaceType)")
     }
     
-    /// :param: key the key identifying the protocol
-    /// :returns: an instance of the specified type, or .None if the type has not been registered
-    func instanceForKey(key: String) -> AnyObject! {
-        if let instance : AnyObject = self.singletons[key] {
-            return instance
+    /// <#Description#>
+    ///
+    /// - parameter interfaceType: the key identifying the protocol
+    ///
+    /// - returns: an instance of the specified type, or .None if the type has not been registered
+    func instance(named interfaceType: String) -> Any? {
+        if let _instance : Any = self.singletons[interfaceType] {
+            return _instance
         }
         
-        if let instantiator = self.instantiators[key] {
+        if let instantiator = self.instantiators[interfaceType] {
             return instantiator()
         }
         
-        return .None
+        return .none
     }
 }
