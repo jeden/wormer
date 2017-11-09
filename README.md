@@ -7,7 +7,7 @@ Wormer uses a static declarative approach to link an interface to its implementa
 
 The dependency injector container is accessed via the `Injector` class, which exposes a `default` static property. And, if you are wondering, yes, it uses the singleton pattern. The initializer is declared private, to prevent direct instantiation.
 
-#How to use it
+# How to use it
 ## Binding an interface to its implementation
 
 Given an interface:
