@@ -1,5 +1,5 @@
 # What's Wormer?
-**Wormer** is a lightweight and simple dependency injection framework, written in pure Swift 3, and compatible with Swift 4.
+**Wormer** is a lightweight and simple dependency injection framework, written in Swift and updated to the 4.2 version of the language.
 
 It is freely inspired by [Unity](https://github.com/unitycontainer/unity), an open source DI container for the .NET platform (not to be confused with the Unity game engine).
 
