@@ -16,8 +16,8 @@
 /// - create an instance of the implementation type bound to an interface type
 public final class Injector {
     // MARK: Properties
-    fileprivate var instantiators: [String : () -> Any] = Dictionary()
-    fileprivate var singletons = [String : Any]()
+    private var instantiators: [String : () -> Any] = Dictionary()
+    private var singletons = [String : Any]()
     
     /// Singleton
     /// :returns: static instance
